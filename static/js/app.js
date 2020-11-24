@@ -15,6 +15,7 @@
 
 
 function getPlots(id) {
+    
     //Read samples.json
         d3.json("samples.json").then (sampledata =>{
             console.log(sampledata)
@@ -126,7 +127,7 @@ function getPlots(id) {
     
     // create the function for the initial data rendering
     function init() {
-        
+
         // select dropdown menu 
         var dropdown = d3.select("#selDataset");
     
