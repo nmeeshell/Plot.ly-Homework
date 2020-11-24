@@ -25,14 +25,14 @@ function getPlots(id) {
             var labels =  sampledata.samples[0].otu_labels.slice(0,10);
             console.log (labels)
 
-        // get only top 10 otu ids for the plot OTU and reversing it. 
+        // top 10 otu ids for the plot OTU 
             var OTU_top = ( sampledata.samples[0].otu_ids.slice(0, 10)).reverse();
 
         // get the otu id's to the desired form for the plot
             var OTU_id = OTU_top.map(d => "OTU " + d);
             console.log(`OTU IDS: ${OTU_id}`)
-            
-         // get the top 10 labels for the plot
+
+         // top 10 labels for the plot
             var labels =  sampledata.samples[0].otu_labels.slice(0,10);
             console.log(`OTU_labels: ${labels}`)
             var trace = {
@@ -40,7 +40,7 @@ function getPlots(id) {
                 y: OTU_id,
                 text: labels,
                 marker: {
-                color: 'blue'},
+                color: 'light blue'},
                 type:"bar",
                 orientation: "h",
             };
@@ -63,6 +63,7 @@ function getPlots(id) {
     
             // create the bar plot
         Plotly.newPlot("bar", data, layout);
+
             // The bubble chart
             var trace1 = {
                 x: sampledata.samples[0].otu_ids,
@@ -93,8 +94,10 @@ function getPlots(id) {
     }  
     // create the function to get the necessary data
     function getDemoInfo(id) {
+
     // read the json file to get data
         d3.json("samples.json").then((data)=> {
+
     // get the metadata info for the demographic panel
             var metadata = data.metadata;
     
@@ -102,15 +105,16 @@ function getPlots(id) {
     
           // filter meta data info by id
            var result = metadata.filter(meta => meta.id.toString() === id)[0];
+           
           // select demographic panel to put data
            var demographicInfo = d3.select("#sample-metadata");
             
          // empty the demographic info panel each time before getting new id info
            demographicInfo.html("");
     
-         // grab the necessary demographic data data for the id and append the info to the panel
+         // grab the necessary demographic data
             Object.entries(result).forEach((key) => {   
-                demographicInfo.append("h5").text(key[0].toUpperCase() + ": " + key[1] + "\n");    
+                demographicInfo.append("h5").text(key[0].toLowerCase() + ": " + key[1] + "\n");    
             });
         });
     }
@@ -122,6 +126,7 @@ function getPlots(id) {
     
     // create the function for the initial data rendering
     function init() {
+        
         // select dropdown menu 
         var dropdown = d3.select("#selDataset");
     
